@@ -175,7 +175,7 @@ class PrivateCacheStrategy implements CacheStrategyInterface
     }
 
     /**
-     * @param RequestInterface  $request
+     * @param RequestInterface $request
      * @param ResponseInterface $response
      *
      * @return bool true if success
@@ -197,6 +197,18 @@ class PrivateCacheStrategy implements CacheStrategyInterface
         }
 
         return false;
+    }
+
+    /**
+     * @param RequestInterface $request
+     *
+     * @return bool true if success
+     */
+    public function purge(RequestInterface $request)
+    {
+        return $this->storage->delete(
+            $this->getCacheKey($request)
+        );
     }
 
     /**

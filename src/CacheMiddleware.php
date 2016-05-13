@@ -259,6 +259,19 @@ class CacheMiddleware
     }
 
     /**
+     * @param CacheStrategyInterface $cache
+     * @param RequestInterface $request
+     * @return bool if removed
+     */
+    protected static function removeFromCache(
+        CacheStrategyInterface $cache,
+        RequestInterface $request
+    ) {
+
+        return $cache->purge($request);
+    }
+
+    /**
      * @param RequestInterface       $request
      * @param CacheStrategyInterface $cacheStorage
      * @param CacheEntry             $cacheEntry
@@ -354,5 +367,9 @@ class CacheMiddleware
     public static function getMiddleware(CacheStrategyInterface $cacheStorage = null)
     {
         return new self($cacheStorage);
+    }
+
+    public function purge(RequestInterface $request) {
+        self::removeFromCache($this->cacheStorage, $request);
     }
 }
