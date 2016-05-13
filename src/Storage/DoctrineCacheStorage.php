@@ -57,4 +57,18 @@ class DoctrineCacheStorage implements CacheStorageInterface
 
         return false;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($key)
+    {
+        try {
+            return $this->cache->delete($key);
+        } catch (\Exception $ignored) {
+            // No fail if we can't save it the storage
+        }
+
+        return false;
+    }
 }

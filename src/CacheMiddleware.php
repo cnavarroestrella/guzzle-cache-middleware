@@ -370,6 +370,6 @@ class CacheMiddleware
     }
 
     public function purge(RequestInterface $request) {
-        self::removeFromCache($this->cacheStorage, $request);
+        return self::removeFromCache($this->cacheStorage, $request);
     }
 }
